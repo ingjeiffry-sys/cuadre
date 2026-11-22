@@ -1,6 +1,6 @@
-// Sin internet: guarda la app en caché. build.ps1 cambia v14 en cada versión.
+// Sin internet: guarda la app en caché. build.ps1 cambia v15 en cada versión.
 // Una versión nueva espera hasta que el usuario toca «Actualizar» (mensaje 'saltar'): así no se recarga a mitad de lo que anota.
-const CACHE = 'wallet-v14';
+const CACHE = 'wallet-v15';
 const ARCHIVOS = ['./', 'index.html', 'estilos.css', 'textos.es.js', 'logica.js', 'prestamos.js', 'planes.js', 'consejos.js', 'factura.js', 'boveda.js', 'graficas.js', 'db.js', 'sistema.js', 'secciones.js', 'app.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'fuentes/CascadiaMono.ttf'];
 self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(ARCHIVOS))));
 self.addEventListener('message', e => { if (e.data === 'saltar') self.skipWaiting(); });

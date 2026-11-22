@@ -2,7 +2,7 @@
 // Las secciones Planes y Calculadora están en secciones.js (reciben el contexto W).
 (function () {
   'use strict';
-  const APP_VERSION = '14';
+  const APP_VERSION = '15';
   const L = window.Logica, T = window.T, G = window.Graficas, B = window.Boveda, PL = window.Planes, PR = window.Prestamos, S = window.Sistema;
   const $ = s => document.querySelector(s);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -284,6 +284,8 @@
     if (!webSuelta()) return false;
     try { const x = localStorage.getItem('cuadre-instalar-oculto'); return !x || Date.now() - Number(x) > 7 * 864e5; } catch { return true; }
   }
+  const tarjetaInstalar = () => mostrarInstalar() ? `<section class="tarjeta instalar"><span class="burbuja">📲</span><div class="txt"><b>${T.instalarTit}</b><small>${T.instalarTxt}</small></div>
+    <div class="acciones"><button class="enlace" data-accion="instalar-luego">${T.ahoraNo}</button><button class="pildora oscura" data-accion="instalar">${T.instalar}</button></div></section>` : '';
   async function instalar() {
     if (promptInstalar) { promptInstalar.prompt(); const r = await promptInstalar.userChoice.catch(() => ({})); promptInstalar = null; if (r.outcome === 'accepted') return; }
     const pasos = esIOS() ? T.pasosIOS : /Android/i.test(navigator.userAgent) ? T.pasosAndroid : T.pasosPC;
@@ -470,7 +472,7 @@
   function vInicio() {
     if (!cuentasVivas().length && !D.boveda) {
       return `<section class="hero vacia"><h2>${T.bienvenida}</h2><p>${T.bienvenidaTxt}</p>
-        <button class="pildora oscura" data-accion="nueva-cuenta">${T.crearCuenta}</button></section>${vGuia()}`;
+        <button class="pildora oscura" data-accion="nueva-cuenta">${T.crearCuenta}</button></section>${tarjetaInstalar()}${vGuia()}`;
     }
     const hoy = L.hoy(), r = L.resumen(D, hoy), rit = L.ritmoMes(D, hoy);
     const otras = Object.entries(r.porMoneda).filter(([m]) => m !== P());
@@ -480,8 +482,7 @@
     const queda = pr.limite - pr.usado;
     return `
       ${avisoRespaldo()}
-      ${mostrarInstalar() ? `<section class="tarjeta instalar"><span class="burbuja">📲</span><div class="txt"><b>${T.instalarTit}</b><small>${T.instalarTxt}</small></div>
-        <div class="acciones"><button class="enlace" data-accion="instalar-luego">${T.ahoraNo}</button><button class="pildora oscura" data-accion="instalar">${T.instalar}</button></div></section>` : ''}
+      ${tarjetaInstalar()}
       <section class="hero">
         <div class="hero-top"><small>${T.patrimonio}</small>
           <button class="icono-btn" data-accion="ocultar" aria-label="${oculto() ? T.mostrar : T.ocultar}">${ico(oculto() ? 'ojoNo' : 'ojo')}</button></div>
