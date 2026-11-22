@@ -1,14 +1,26 @@
 {
+  "id": "./",
   "name": "Cuadre — Cuadra tus cuartos",
   "short_name": "Cuadre",
+  "description": "Tus gastos, ingresos, presupuesto y metas en RD$ y US$. Funciona sin internet y tus datos se quedan en tu teléfono.",
   "lang": "es",
-  "start_url": "./",
+  "dir": "ltr",
+  "start_url": "./?origen=app",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone"],
+  "orientation": "portrait",
+  "categories": ["finance", "productivity"],
   "background_color": "#16132A",
   "theme_color": "#16132A",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "capturas/inicio.jpg", "sizes": "780x1732", "type": "image/jpeg", "form_factor": "narrow", "label": "Tu saldo, lo que gastaste y tu presupuesto de un vistazo" },
+    { "src": "capturas/cartera.jpg", "sizes": "780x1732", "type": "image/jpeg", "form_factor": "narrow", "label": "Tu cartera por día, semana o mes, con el saldo de cada movimiento" }
   ]
 }

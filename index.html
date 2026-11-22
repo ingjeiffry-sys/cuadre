@@ -7,6 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Cuadre</title>
 <script>/* diseño y modo antes de pintar (copia en localStorage; los datos viven en IndexedDB) */ try { var t = JSON.parse(localStorage.getItem("wallet-tema") || "{}"), h = document.documentElement; h.dataset.tema = t.tema || "lavanda"; if (t.modo === "oscuro" || (t.modo !== "claro" && matchMedia("(prefers-color-scheme: dark)").matches)) h.dataset.oscuro = ""; } catch (e) { document.documentElement.dataset.tema = "lavanda"; }</script>
+<script>/* Chrome avisa que se puede instalar muy temprano: se guarda aquí, antes de cargar la app, para que «Instalar» abra la ventana de instalación de un toque */ window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); window.__instalar = e; });</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="stylesheet" href="estilos.css">

@@ -2,7 +2,7 @@
 // Las secciones Planes y Calculadora están en secciones.js (reciben el contexto W).
 (function () {
   'use strict';
-  const APP_VERSION = '16';
+  const APP_VERSION = '17';
   const L = window.Logica, T = window.T, G = window.Graficas, B = window.Boveda, PL = window.Planes, PR = window.Prestamos, S = window.Sistema;
   const $ = s => document.querySelector(s);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -277,9 +277,8 @@
   const instalada = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   const esIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const webSuelta = () => !S.esApk() && !instalada(); // en el navegador sin instalar: Safari puede borrar los datos si no se usa
-  let promptInstalar = null, swEspera = null;
-  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); promptInstalar = e; });
-  window.addEventListener('appinstalled', () => { promptInstalar = null; pintar(); });
+  let swEspera = null; // el aviso de instalar de Chrome lo guarda index.html en window.__instalar (llega antes que la app)
+  window.addEventListener('appinstalled', () => { window.__instalar = null; pintar(); });
   function mostrarInstalar() {
     if (!webSuelta()) return false;
     try { const x = localStorage.getItem('cuadre-instalar-oculto'); return !x || Date.now() - Number(x) > 7 * 864e5; } catch { return true; }
@@ -287,7 +286,8 @@
   const tarjetaInstalar = () => mostrarInstalar() ? `<section class="tarjeta instalar"><span class="burbuja">📲</span><div class="txt"><b>${T.instalarTit}</b><small>${T.instalarTxt}</small></div>
     <div class="acciones"><button class="enlace" data-accion="instalar-luego">${T.ahoraNo}</button><button class="pildora oscura" data-accion="instalar">${T.instalar}</button></div></section>` : '';
   async function instalar() {
-    if (promptInstalar) { promptInstalar.prompt(); const r = await promptInstalar.userChoice.catch(() => ({})); promptInstalar = null; if (r.outcome === 'accepted') return; }
+    const nativo = window.__instalar; // Android y PC con Chrome o Edge: la ventana de instalación de un toque
+    if (nativo) { window.__instalar = null; nativo.prompt(); const r = await nativo.userChoice.catch(() => ({})); if (r.outcome === 'accepted') return; }
     const pasos = esIOS() ? T.pasosIOS : /Android/i.test(navigator.userAgent) ? T.pasosAndroid : T.pasosPC;
     abrirHoja(`<h2>📲 ${T.instalarTit}</h2><p class="nota">${T.instalarPor}</p><ol class="pasos-instalar">${pasos.map(p => `<li>${p}</li>`).join('')}</ol>
       <div class="acciones uno"><button type="button" class="pildora oscura" data-cerrar>${T.entendido}</button></div>`, () => {}, { sinAcciones: true });
