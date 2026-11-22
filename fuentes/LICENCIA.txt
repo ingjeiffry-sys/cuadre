@@ -1,0 +1,6 @@
+Cascadia Mono (diseño Futurista de Wallet)
+Copyright (c) 2019 - Present, Microsoft Corporation, with Reserved Font Name Cascadia Code.
+Se distribuye sin cambios bajo la SIL Open Font License, versión 1.1:
+https://openfontlicense.org/open-font-license-official-text/
+Fuente original: https://github.com/microsoft/cascadia-code
+PENDIENTE antes de publicar en Google Play: copiar aquí el texto completo de la OFL 1.1 (del repositorio de arriba).

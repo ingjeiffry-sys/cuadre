@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E6E1FA">
+<meta name="color-scheme" content="light dark">
+<title>Cuadre</title>
+<script>/* diseño y modo antes de pintar (copia en localStorage; los datos viven en IndexedDB) */ try { var t = JSON.parse(localStorage.getItem("wallet-tema") || "{}"), h = document.documentElement; h.dataset.tema = t.tema || "lavanda"; if (t.modo === "oscuro" || (t.modo !== "claro" && matchMedia("(prefers-color-scheme: dark)").matches)) h.dataset.oscuro = ""; } catch (e) { document.documentElement.dataset.tema = "lavanda"; }</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="fondo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<p id="preview" class="banda preview" hidden></p>
+<header>
+  <div><small id="fecha" class="fecha"></small><h1 id="titulo"></h1></div>
+  <div class="header-btns">
+    <button class="redondo" data-tab="calculadora" data-et="calculadora"><span data-ico="calc"></span></button>
+    <button class="redondo" data-tab="ajustes" data-et="ajustes"><span data-ico="ajustes"></span></button>
+  </div>
+</header>
+<main id="vista" aria-live="polite"></main>
+<nav aria-label="Secciones">
+  <div class="barra">
+    <button data-tab="inicio"><span data-ico="inicio"></span><span data-t="inicio"></span></button>
+    <button data-tab="cartera"><span data-ico="cuentas"></span><span data-t="cartera"></span></button>
+    <button class="fab" data-accion="gasto" data-et="anotar"><span data-ico="mas"></span></button>
+    <button data-tab="planes"><span data-ico="planes"></span><span data-t="planes"></span></button>
+    <button data-tab="analisis"><span data-ico="analisis"></span><span data-t="analisis"></span></button>
+  </div>
+</nav>
+<dialog id="hoja"></dialog>
+<div id="candado" class="candado" hidden></div>
+<div id="aviso" class="aviso" role="status"></div>
+<script src="textos.es.js"></script>
+<script src="logica.js"></script>
+<script src="prestamos.js"></script>
+<script src="planes.js"></script>
+<script src="consejos.js"></script>
+<script src="factura.js"></script>
+<script src="boveda.js"></script>
+<script src="graficas.js"></script>
+<script src="db.js"></script>
+<script src="sistema.js"></script>
+<script src="secciones.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
