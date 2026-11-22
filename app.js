@@ -2,7 +2,7 @@
 // Las secciones Planes y Calculadora están en secciones.js (reciben el contexto W).
 (function () {
   'use strict';
-  const APP_VERSION = '15';
+  const APP_VERSION = '16';
   const L = window.Logica, T = window.T, G = window.Graficas, B = window.Boveda, PL = window.Planes, PR = window.Prestamos, S = window.Sistema;
   const $ = s => document.querySelector(s);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);

@@ -1,8 +1,9 @@
-// Sin internet: guarda la app en caché. build.ps1 cambia v15 en cada versión.
+// Sin internet: guarda la app en caché. build.ps1 cambia v16 en cada versión.
 // Una versión nueva espera hasta que el usuario toca «Actualizar» (mensaje 'saltar'): así no se recarga a mitad de lo que anota.
-const CACHE = 'wallet-v15';
+const CACHE = 'wallet-v16';
 const ARCHIVOS = ['./', 'index.html', 'estilos.css', 'textos.es.js', 'logica.js', 'prestamos.js', 'planes.js', 'consejos.js', 'factura.js', 'boveda.js', 'graficas.js', 'db.js', 'sistema.js', 'secciones.js', 'app.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'fuentes/CascadiaMono.ttf'];
-self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(ARCHIVOS))));
+// cache: 'reload' = pedir los archivos al servidor, no a la caché HTTP del navegador (GitHub Pages la guarda 10 min y la versión nueva traería archivos viejos)
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(ARCHIVOS.map(u => new Request(u, { cache: 'reload' }))))));
 self.addEventListener('message', e => { if (e.data === 'saltar') self.skipWaiting(); });
 self.addEventListener('activate', e => e.waitUntil(
   caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
